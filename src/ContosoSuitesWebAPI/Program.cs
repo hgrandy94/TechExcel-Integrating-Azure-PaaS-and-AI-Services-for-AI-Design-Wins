@@ -53,9 +53,9 @@ app.UseHttpsRedirection();
 
 /**** Endpoints ****/
 // This endpoint serves as the default landing page for the API.
-app.MapGet("/", async () => 
+app.MapGet("/", () =>
 {
-    return "Welcome to the Contoso Suites Web API!";
+    return Task.FromResult("Welcome to the Contoso Suites Web API!");
 })
     .WithName("Index")
     .WithOpenApi();
@@ -108,7 +108,7 @@ app.MapGet("/Vectorize", async (string text, [FromServices] IVectorizationServic
     .WithOpenApi();
 
 // This endpoint is used to search for maintenance requests based on a vectorized query.
-app.MapPost("/VectorSearch", async ([FromBody] float[] queryVector, [FromServices] IVectorizationService vectorizationService, int max_results = 0, double minimum_similarity_score = 0.8) =>
+app.MapPost("/VectorSearch", ([FromBody] float[] queryVector, [FromServices] IVectorizationService vectorizationService, int max_results = 0, double minimum_similarity_score = 0.8) =>
 {
     // Exercise 3 Task 3 TODO #3: Insert code to call the ExecuteVectorSearch function on the Vectorization Service. Don't forget to remove the NotImplementedException.
     throw new NotImplementedException();
@@ -117,7 +117,7 @@ app.MapPost("/VectorSearch", async ([FromBody] float[] queryVector, [FromService
     .WithOpenApi();
 
 // This endpoint is used to send a message to the Maintenance Copilot.
-app.MapPost("/MaintenanceCopilotChat", async ([FromBody]string message, [FromServices] MaintenanceCopilot copilot) =>
+app.MapPost("/MaintenanceCopilotChat", ([FromBody] string message, [FromServices] MaintenanceCopilot copilot) =>
 {
     // Exercise 5 Task 2 TODO #10: Insert code to call the Chat function on the MaintenanceCopilot. Don't forget to remove the NotImplementedException.
     throw new NotImplementedException();
